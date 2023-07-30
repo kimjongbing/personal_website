@@ -8,9 +8,6 @@
     <script src="utils\unpkg.com_htmx.org@1.9.4_dist_htmx.min.js"></script>
 </head>
 <body>
-    <button hx-get="content.md" hx-swap="innerHTML" hx-target="#content">Home</button>
-    <button hx-get="blogs.md" hx-swap="innerHTML" hx-target="#content">Load Blogs</button>
-    <button hx-get="projects.md" hx-swap="innerHTML" hx-target="#content">Load Projects</button>
     <div id="content" hx-get="content.md" hx-trigger="load">
         Loading...
     </div>

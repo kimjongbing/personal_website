@@ -11,4 +11,7 @@ This is my website where I hope to talk about my projects and other things I fin
 - [**UWP DLL Injector**](https://github.com/kimjongbing/dll_injector_uwp) - A more advanced DLL injector I created in both Rust and C++ which is capable of injecting into Universal Windows Platform (UWP) applications.
 - [**Personal website**](https://github.com/kimjongbing/personal_website) - Source code of the very website you're looking at!
 
+[**View more projects**](#placeholder_for_projects)
+
 ## Blogs
+[**View more blogs**](#placeholder_for_blogs)
