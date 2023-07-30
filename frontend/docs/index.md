@@ -14,4 +14,6 @@ This is my website where I hope to talk about my projects and other things I fin
 [**View more projects**](#placeholder_for_projects)
 
 ## Blogs
+- [**Creation of this website & why I made it**]() - July 31, 2023
+
 [**View more blogs**](#placeholder_for_blogs)
