@@ -36,6 +36,44 @@ fn content_md() -> content::Html<String> {
     }
 }
 
+#[get("/blogs.md")]
+fn blogs_md() -> content::Html<String> {
+    let frontend_dir = get_frontend_directory();
+    let relative_path = Path::new("docs/blogs.md");
+    let path = frontend_dir.join(relative_path);
+    println!("Trying to read markdown from: {:?}", path);
+
+    match fs::read_to_string(&path) {
+        Ok(markdown) => {
+            let html_content = markdown_to_html(&markdown, &ComrakOptions::default());
+            content::Html(html_content)
+        }
+        Err(err) => {
+            println!("Error reading markdown file: {}", err);
+            content::Html("Error reading markdown file".to_string())
+        }
+    }
+}
+
+#[get("/projects.md")]
+fn projects_md() -> content::Html<String> {
+    let frontend_dir = get_frontend_directory();
+    let relative_path = Path::new("docs/projects.md");
+    let path = frontend_dir.join(relative_path);
+    println!("Trying to read markdown from: {:?}", path);
+
+    match fs::read_to_string(&path) {
+        Ok(markdown) => {
+            let html_content = markdown_to_html(&markdown, &ComrakOptions::default());
+            content::Html(html_content)
+        }
+        Err(err) => {
+            println!("Error reading markdown file: {}", err);
+            content::Html("Error reading markdown file".to_string())
+        }
+    }
+}
+
 #[get("/<file..>", rank = 2)]
 fn files(file: PathBuf) -> Option<NamedFile> {
     let frontend_dir = get_frontend_directory();
@@ -61,6 +99,6 @@ fn index() -> Option<NamedFile> {
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![index, files, content_md])
+        .mount("/", routes![index, files, content_md, blogs_md, projects_md])
         .launch();
 }
