@@ -1,0 +1,34 @@
+:root {
+    --bg:   #fafafa;
+    --fg:   #2f343f;
+    --hl:   #4084d6;
+    --hl2:  #ed4737;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg:   #2f343f;
+        --fg:   #fafafa;
+    }
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-size: 1em;
+    font-family: C059, Serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: left;
+}
+
+#content {
+    width: 85%; /* adjust this value to change the width of the content box */
+    max-width: 52em;  /* prevents the content div from getting too wide on large screens */
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);  /* adds a slight shadow for a "card" effect */
+    background-color: white; /* set the background color of the content box */
+}
