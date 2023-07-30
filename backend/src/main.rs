@@ -1,11 +1,12 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 use rocket::response::content;
 use rocket::response::NamedFile;
+use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::env;
 
 use comrak::{markdown_to_html, ComrakOptions};
 
@@ -27,11 +28,11 @@ fn content_md() -> content::Html<String> {
         Ok(markdown) => {
             let html_content = markdown_to_html(&markdown, &ComrakOptions::default());
             content::Html(html_content)
-        },
+        }
         Err(err) => {
             println!("Error reading markdown file: {}", err);
             content::Html("Error reading markdown file".to_string())
-        },
+        }
     }
 }
 
@@ -54,10 +55,12 @@ fn index() -> Option<NamedFile> {
         Err(err) => {
             println!("Error opening file: {}", err);
             None
-        },
+        }
     }
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![index, files, content_md]).launch();
+    rocket::ignite()
+        .mount("/", routes![index, files, content_md])
+        .launch();
 }
