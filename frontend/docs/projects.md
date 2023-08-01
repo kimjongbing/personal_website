@@ -32,4 +32,4 @@
 
 ---
 
-[Return to Home](#placeholder_for_index)
+[**Return to Home**](#placeholder_for_index)

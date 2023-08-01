@@ -6,3 +6,5 @@ Learning by explaining and doing is incredibly important. I have been studying J
 But why mention Japanese? Well, with Japanese, I use flashcards (Anki) to continuously expose myself to vocabulary terms to retain them. However, with coding, I only have one component of "constant exposure" (through creating different projects) and no supplementary component like Anki. This is where this website comes in. By explaining how I created my projects, what problems I encountered, what I learned along the way, and detailing it in a way that is reproducible by others, I hope to reinforce the knowledge I've been exposed to and engrain it in myself.
 
 In a future blog post, I will detail how I created this website, the problems I encountered along the way, and how I resolved them. For now, I hope you enjoy the rest of my website!
+
+[**Return to Home**](#placeholder_for_index)

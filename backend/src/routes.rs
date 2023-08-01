@@ -45,10 +45,16 @@ pub fn get_blog_article_content(file: PathBuf) -> content::Html<String> {
     let frontend_dir = get_frontend_directory();
     let path = frontend_dir.join("docs").join("blog_files").join(file);
     println!("Full path to the file: {:?}", path);
-    let content = Content::new(path);
+    let mut content = Content::new(path);
+
+    content.content = replace_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_for_index",
+        "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
 
     println!("get_blog_article_content is about to return");
-    println!("get_index_content: {}", &content.content);
+    println!("get_blog_article_content: {}", &content.content);
     content::Html(content.content)
 }
 
