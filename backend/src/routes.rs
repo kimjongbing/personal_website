@@ -8,6 +8,7 @@ use std::path::{Path, PathBuf};
 
 #[get("/blogs")]
 pub fn get_blog_articles() -> Json<Vec<Blog>> {
+    println!("get_blog_articles has been called");
     let frontend_dir = get_frontend_directory();
     let blog_files_dir = frontend_dir.join("docs/blog_files");
 
@@ -34,6 +35,7 @@ pub fn get_blog_articles() -> Json<Vec<Blog>> {
             Vec::new()
         });
 
+    println!("get_blog_articles is about to return");
     Json(blogs)
 }
 
@@ -44,11 +46,15 @@ pub fn get_blog_article_content(file: PathBuf) -> content::Html<String> {
     let path = frontend_dir.join("docs").join("blog_files").join(file);
     println!("Full path to the file: {:?}", path);
     let content = Content::new(path);
+
+    println!("get_blog_article_content is about to return");
+    println!("get_index_content: {}", &content.content);
     content::Html(content.content)
 }
 
 #[get("/content.md")]
 pub fn get_index_content() -> content::Html<String> {
+    println!("get_index_content has been called");
     let frontend_dir = get_frontend_directory();
     let relative_path = Path::new("docs/index.md");
     let path = frontend_dir.join(relative_path);
@@ -72,11 +78,14 @@ pub fn get_index_content() -> content::Html<String> {
         "hx-get=\"blogs.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
+    println!("get_index_content is about to return");
+    println!("get_index_content: {}", &content.content);
     content::Html(content.content)
 }
 
 #[get("/blogs.md")]
 pub fn get_blogs_md_content() -> content::Html<String> {
+    println!("get_blogs_md_content has been called");
     let frontend_dir = get_frontend_directory();
     let relative_path = Path::new("docs/blogs.md");
     let path = frontend_dir.join(relative_path);
@@ -88,11 +97,14 @@ pub fn get_blogs_md_content() -> content::Html<String> {
         "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
+    println!("get_blogs_md_content is about to return");
+    println!("get_index_content: {}", &content.content);
     content::Html(content.content)
 }
 
 #[get("/projects.md")]
 pub fn get_projects_md_content() -> content::Html<String> {
+    println!("get_projects_md_content has been called");
     let frontend_dir = get_frontend_directory();
     let relative_path = Path::new("docs/projects.md");
     let path = frontend_dir.join(relative_path);
@@ -104,22 +116,28 @@ pub fn get_projects_md_content() -> content::Html<String> {
         "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
+    println!("get_projects_md_content is about to return");
+    println!("get_projects_md_content: {}", &content.content);
     content::Html(content.content)
 }
 
 #[get("/files/<file..>")]
 pub fn get_file_content(file: PathBuf) -> Option<NamedFile> {
+    println!("get_file_content has been called with file: {:?}", file);
     let frontend_dir = get_frontend_directory();
     let path = frontend_dir.join(file);
 
+    println!("get_file_content is about to return");
     NamedFile::open(path).ok()
 }
 
 #[get("/", rank = 1)]
 pub fn get_index_page() -> Option<NamedFile> {
+    println!("get_index_page has been called");
     let frontend_dir = get_frontend_directory();
     let path = frontend_dir.join("index.html");
 
+    println!("get_index_page is about to return");
     match NamedFile::open(path) {
         Ok(file) => Some(file),
         Err(err) => {
