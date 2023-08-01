@@ -37,10 +37,12 @@ pub fn get_blog_articles() -> Json<Vec<Blog>> {
     Json(blogs)
 }
 
-#[get("/blog/<file..>")]
+#[get("/docs/blog_files/<file..>", rank = 1)]
 pub fn get_blog_article_content(file: PathBuf) -> content::Html<String> {
+    println!("get_blog_article_content called with file: {:?}", file);
     let frontend_dir = get_frontend_directory();
-    let path = frontend_dir.join(file);
+    let path = frontend_dir.join("docs").join("blog_files").join(file);
+    println!("Full path to the file: {:?}", path);
     let content = Content::new(path);
     content::Html(content.content)
 }
@@ -105,10 +107,11 @@ pub fn get_projects_md_content() -> content::Html<String> {
     content::Html(content.content)
 }
 
-#[get("/<file..>", rank = 2)]
+#[get("/files/<file..>")]
 pub fn get_file_content(file: PathBuf) -> Option<NamedFile> {
     let frontend_dir = get_frontend_directory();
     let path = frontend_dir.join(file);
+
     NamedFile::open(path).ok()
 }
 

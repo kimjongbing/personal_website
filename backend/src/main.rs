@@ -8,9 +8,16 @@ pub mod models;
 pub mod routes;
 pub mod utils;
 
+use log::Level;
+use simple_logger::SimpleLogger;
+
 use crate::routes::*;
 
 fn main() {
+    SimpleLogger::new()
+        .with_level(Level::Debug.to_level_filter())
+        .init()
+        .unwrap();
     rocket::ignite()
         .mount(
             "/",

@@ -22,6 +22,7 @@ impl Content {
         });
 
         let content = markdown_to_html(&markdown, &ComrakOptions::default());
+        log::debug!("Converted Markdown to HTML: {}", content);
         Self { path, content }
     }
 }

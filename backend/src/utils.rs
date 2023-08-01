@@ -1,12 +1,16 @@
 use std::env;
 use std::path::PathBuf;
 
+
 pub fn get_frontend_directory() -> PathBuf {
     let current_dir = env::current_dir().expect("Failed to get the current working directory.");
     let mut frontend_dir = current_dir;
     frontend_dir.pop();
-    frontend_dir.join("frontend")
+    let dir = frontend_dir.join("frontend");
+    println!("Serving frontend files from: {:?}", dir);
+    dir
 }
+
 
 pub fn replace_placeholder_with_htmx(content: &str, placeholder: &str, htmx_code: &str) -> String {
     println!(
@@ -24,7 +28,7 @@ pub fn replace_placeholder_with_htmx(content: &str, placeholder: &str, htmx_code
 pub fn replace_blog_placeholder_with_htmx(
     html_content: &str,
     placeholder_prefix: &str,
-    _htmx_attributes: &str, // this still doesnt do anything btw
+    htmx_attributes: &str, // this still doesnt do anything btw
 ) -> String {
     let placeholder = "#placeholder_blog_files:";
     let mut new_content = String::new();
@@ -32,7 +36,7 @@ pub fn replace_blog_placeholder_with_htmx(
     for line in html_content.lines() {
         if line.contains(placeholder_prefix) {
             let markdown_file = extract_filename_from_placeholder(line, placeholder).to_string();
-            new_content.push_str(&create_new_line(line, &markdown_file));
+            new_content.push_str(&create_new_line(line, &markdown_file, htmx_attributes));
         } else {
             new_content.push_str(line);
         }
@@ -49,17 +53,18 @@ fn extract_filename_from_placeholder<'a>(line: &'a str, placeholder: &str) -> &'
     &line[(start + prefix_length)..end]
 }
 
-fn create_new_line(line: &str, markdown_file: &str) -> String {
-    let new_line = format_replacement_line(markdown_file);
+fn create_new_line(line: &str, markdown_file: &str, htmx_attributes: &str) -> String {
+    let new_line = format_replacement_line(markdown_file, htmx_attributes);
     replace_placeholder_with_new_line(line, markdown_file, &new_line)
 }
 
-fn format_replacement_line(markdown_file: &str) -> String {
+fn format_replacement_line(markdown_file: &str, htmx_attributes: &str) -> String {
     format!(
-        "<a href=\"#\" hx-get=\"docs/blog_files/{}\" hx-swap=\"innerHTML\" hx-target=\"#content\">",
-        markdown_file
+        "<a href=\"#\" hx-get=\"docs/blog_files/{}\" hx-swap=\"innerHTML\" hx-target=\"#content\" {}>",
+        markdown_file, htmx_attributes
     )
 }
+
 
 fn replace_placeholder_with_new_line(line: &str, markdown_file: &str, new_line: &str) -> String {
     line.replace(
