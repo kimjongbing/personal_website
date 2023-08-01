@@ -9,35 +9,33 @@ use std::path::PathBuf;
 use std::fs;
 use std::path::Path;
 
-//this is horrible please fix
 #[get("/blogs")]
 pub fn get_blog_articles() -> Json<Vec<Blog>> {
     let frontend_dir = get_frontend_directory();
     let blog_files_dir = frontend_dir.join("docs/blog_files");
 
-    let mut blogs = Vec::new();
-
-    match fs::read_dir(&blog_files_dir) {
-        Ok(entries) => {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Ok(file_type) = entry.file_type() {
-                        if file_type.is_file() {
-                            let file_name = entry.file_name();
-                            let file_name = file_name.to_string_lossy().to_string();
-                            if file_name.ends_with(".md") {
-                                blogs.push(Blog {
-                                    name: file_name.clone(),
-                                    path: format!("docs/blog_files/{}", file_name),
-                                });
-                            }
-                        }
+    let blogs: Vec<Blog> = fs::read_dir(&blog_files_dir)
+        .map(|entries| {
+            entries
+                .filter_map(Result::ok)
+                .filter(|entry| entry.file_type().ok().map_or(false, |ft| ft.is_file()))
+                .filter_map(|entry| {
+                    let file_name = entry.file_name().to_string_lossy().to_string();
+                    if file_name.ends_with(".md") {
+                        Some(Blog {
+                            name: file_name.clone(),
+                            path: format!("docs/blog_files/{}", file_name),
+                        })
+                    } else {
+                        None
                     }
-                }
-            }
-        }
-        Err(err) => println!("Error reading blog files: {}", err),
-    }
+                })
+                .collect::<Vec<Blog>>()
+        })
+        .unwrap_or_else(|err| {
+            println!("Error reading blog files: {}", err);
+            Vec::new()
+        });
 
     Json(blogs)
 }
