@@ -16,6 +16,7 @@ regex = "1.9.1"
 pulldown-cmark = "0.9.3"
 log = "0.4.19"
 simple_logger = "4.2.0"
+env_logger = "0.10.0"
 
 [patch.crates-io]
 syntect = { git = "https://github.com/trishume/syntect", branch = "master" }  # Add this line to patch syntect

@@ -1,4 +1,12 @@
 # Blogs
-this is the blogs page
+
+---
+
+## Creation of this website & why I made it
+**July 31, 2023**  
+- [Creation of this website & why I made it](#placeholder_blog_files:blog_about_personal_website-31-07-2023.md) - A short introductory blog post about the creation of this website and why I made it.
+
+---
 
 [**Return to Home**](#placeholder_for_index)
+

@@ -2,6 +2,7 @@ use comrak::{markdown_to_html, ComrakOptions};
 use serde::Serialize;
 use std::fs;
 use std::path::PathBuf;
+use log::error;
 
 #[derive(Serialize)]
 pub struct Blog {
@@ -17,7 +18,7 @@ pub struct Content {
 impl Content {
     pub fn new(path: PathBuf) -> Self {
         let markdown = fs::read_to_string(&path).unwrap_or_else(|err| {
-            println!("Error reading markdown file: {}", err);
+            error!("Error reading markdown file: {}", err);
             "Error reading markdown file".to_string()
         });
 
