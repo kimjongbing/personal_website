@@ -24,28 +24,16 @@ pub fn replace_placeholder_with_htmx(content: &str, placeholder: &str, htmx_code
 pub fn replace_blog_placeholder_with_htmx(
     html_content: &str,
     placeholder_prefix: &str,
-    _htmx_attributes: &str, // doesnt do anything yet, dont remember why its here and i seemingly cant remove it or this breaks
+    _htmx_attributes: &str, // this still doesnt do anything btw
 ) -> String {
+    let placeholder = "#placeholder_blog_files:";
     let mut new_content = String::new();
 
     for line in html_content.lines() {
         if line.contains(placeholder_prefix) {
-            println!("Found placeholder: {}", line);
-            // get the name of the markdown file
-            let start = line.find('"').unwrap() + 1;
-            let end = line.rfind('"').unwrap();
-            let prefix_length = "#placeholder_blog_files:".len();
-            let md_file = &line[(start + prefix_length)..end];
-
-            let new_line = format!("<a href=\"#\" hx-get=\"docs/blog_files/{}\" hx-swap=\"innerHTML\" hx-target=\"#content\">", md_file);
-            println!("New line: {}", new_line);
-
-            new_content.push_str(&line.replace(
-                &format!("<a href=\"#placeholder_blog_files:{}\"", md_file),
-                &new_line,
-            ));
+            let markdown_file = extract_filename_from_placeholder(line, placeholder).to_string();
+            new_content.push_str(&create_new_line(line, &markdown_file));
         } else {
-            // if the line doesn't contain the placeholder, just add it to the new content
             new_content.push_str(line);
         }
         new_content.push('\n');
@@ -54,4 +42,28 @@ pub fn replace_blog_placeholder_with_htmx(
     new_content
 }
 
-// clean up this code so i dont need comments to explain it
+fn extract_filename_from_placeholder<'a>(line: &'a str, placeholder: &str) -> &'a str {
+    let start = line.find('"').unwrap() + 1;
+    let end = line.rfind('"').unwrap();
+    let prefix_length = placeholder.len();
+    &line[(start + prefix_length)..end]
+}
+
+fn create_new_line(line: &str, markdown_file: &str) -> String {
+    let new_line = format_replacement_line(markdown_file);
+    replace_placeholder_with_new_line(line, markdown_file, &new_line)
+}
+
+fn format_replacement_line(markdown_file: &str) -> String {
+    format!(
+        "<a href=\"#\" hx-get=\"docs/blog_files/{}\" hx-swap=\"innerHTML\" hx-target=\"#content\">",
+        markdown_file
+    )
+}
+
+fn replace_placeholder_with_new_line(line: &str, markdown_file: &str, new_line: &str) -> String {
+    line.replace(
+        &format!("<a href=\"#placeholder_blog_files:{}\"", markdown_file),
+        &new_line,
+    )
+}
