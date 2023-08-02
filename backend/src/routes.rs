@@ -13,7 +13,7 @@ pub fn get_blog_articles() -> Json<Vec<Blog>> {
     let frontend_dir = get_frontend_directory();
     let blog_files_dir = frontend_dir.join("docs/blog_files");
 
-    let blogs: Vec<Blog> = fs::read_dir(&blog_files_dir)
+    let blogs: Vec<Blog> = fs::read_dir(blog_files_dir)
         .map(|entries| {
             entries
                 .filter_map(Result::ok)

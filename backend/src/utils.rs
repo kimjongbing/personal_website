@@ -97,7 +97,7 @@ fn replace_placeholder_with_new_line(line: &str, markdown_file: &str, new_line: 
 
     let new_content = line.replace(
         &format!("<a href=\"#placeholder_blog_files:{}\">", markdown_file),
-        &new_line,
+        new_line,
     );
 
     debug!(
