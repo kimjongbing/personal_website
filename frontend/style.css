@@ -3,12 +3,14 @@
     --fg:   #2f343f;
     --hl:   #4084d6;
     --hl2:  #ed4737;
+    --box-bg: white;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --bg:   #2f343f;
         --fg:   #fafafa;
+        --box-bg: #404040; 
     }
 }
 
@@ -26,9 +28,27 @@ body {
 }
 
 #content {
-    width: 85%; /* adjust this value to change the width of the content box */
+    width: 85%; /* width of the content box */
     max-width: 52em;  /* prevents the content div from getting too wide on large screens */
     padding: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);  /* adds a slight shadow for a "card" effect */
-    background-color: white; /* set the background color of the content box */
+    background-color: var(--box-bg);
+}
+
+a {
+    color: var(--hl);
+    text-decoration: none; /* removes underline */
+    transition: color 0.3s ease; /* smooth transition */
+}
+
+a:hover, a:focus {
+    color: var(--hl2); /* changes color on hover and focus for accessibility */
+}
+
+a:active {
+    color: var(--fg); /* changes color when the link is active (being clicked) */
+}
+
+a:visited {
+    color: var(--hl); /* keeps the color the same after the link has been visited */
 }
