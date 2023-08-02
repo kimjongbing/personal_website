@@ -1,16 +1,18 @@
 :root {
     --bg:   #fafafa;
     --fg:   #2f343f;
-    --hl:   #4084d6;
-    --hl2:  #ed4737;
+    --hl:   #7aa2f7;  /* soft blue */
+    --hl2:  #f7768e;  /* pink */
     --box-bg: white;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg:   #2f343f;
-        --fg:   #fafafa;
-        --box-bg: #404040; 
+        --bg:   #1a1b26;  /* dark blue */
+        --fg:   #c0caf5;  /* light blue-grey */
+        --hl:   #7aa2f7;  /* soft blue for links */
+        --hl2:  #f7768e;  /* pink for hover/focus */
+        --box-bg: #24283b;  /* moderate blue */
     }
 }
 
