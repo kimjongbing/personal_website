@@ -54,6 +54,12 @@ pub fn get_blog_article_content(file: PathBuf) -> content::Html<String> {
         "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
+    content.content = replace_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_for_blogs",
+        "hx-get=\"blogs.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
+
     info!("get_blog_article_content is about to return");
     debug!("get_blog_article_content: {}", &content.content);
     content::Html(content.content)
@@ -102,6 +108,12 @@ pub fn get_blogs_md_content() -> content::Html<String> {
         &content.content,
         "#placeholder_for_index",
         "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
+
+    content.content = replace_blog_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_blog_files:",
+        "hx-get=\"{}\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
     info!("get_blogs_md_content is about to return");
