@@ -1,6 +1,6 @@
+use log::{debug, info};
 use std::env;
 use std::path::PathBuf;
-use log::{info, debug};
 
 pub fn get_frontend_directory() -> PathBuf {
     let current_dir = env::current_dir().expect("Failed to get the current working directory.");

@@ -1,8 +1,8 @@
 use comrak::{markdown_to_html, ComrakOptions};
+use log::error;
 use serde::Serialize;
 use std::fs;
 use std::path::PathBuf;
-use log::error;
 
 #[derive(Serialize)]
 pub struct Blog {

@@ -1,11 +1,11 @@
 use crate::models::{Blog, Content};
 use crate::utils::*;
+use log::{debug, error, info};
 use rocket::response::content;
 use rocket::response::NamedFile;
 use rocket_contrib::json::Json;
 use std::fs;
 use std::path::{Path, PathBuf};
-use log::{info, error, debug};
 
 #[get("/blogs")]
 pub fn get_blog_articles() -> Json<Vec<Blog>> {
@@ -116,6 +116,12 @@ pub fn get_blogs_md_content() -> content::Html<String> {
         "hx-get=\"{}\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
+    content.content = replace_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_for_projects",
+        "hx-get=\"projects.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
+
     info!("get_blogs_md_content is about to return");
     debug!("get_index_content: {}", &content.content);
     content::Html(content.content)
@@ -133,6 +139,18 @@ pub fn get_projects_md_content() -> content::Html<String> {
         &content.content,
         "#placeholder_for_index",
         "hx-get=\"content.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
+
+    content.content = replace_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_for_blogs",
+        "hx-get=\"blogs.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
+    );
+
+    content.content = replace_placeholder_with_htmx(
+        &content.content,
+        "#placeholder_for_projects",
+        "hx-get=\"projects.md\" hx-swap=\"innerHTML\" hx-target=\"#content\"",
     );
 
     info!("get_projects_md_content is about to return");
