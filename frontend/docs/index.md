@@ -1,3 +1,7 @@
+[**Home**](#placeholder_for_index) | [**Blogs**](#placeholder_for_blogs) | [**Projects**](#placeholder_for_projects)
+
+---
+
 # Welcome
 This is my website where I hope to talk about my projects and other things I find interesting. I would also like to use this as a place to document my learning process and share my knowledge with others. Furthermore, I would like to improve my UI/UX skills and this website is a great place to do that as so far I have been only working on backend projects.
 

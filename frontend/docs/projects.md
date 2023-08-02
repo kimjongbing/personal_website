@@ -1,3 +1,7 @@
+[**Home**](#placeholder_for_index) | [**Blogs**](#placeholder_for_blogs) | [**Projects**](#placeholder_for_projects)
+
+---
+
 # My Projects
 
 ---
@@ -31,5 +35,3 @@
 - [Proxy Checker](https://github.com/kimjongbing/JAPCproxychecker) - A handy proxy checker that can grab proxies from various customizable sources. Written in Python.
 
 ---
-
-[**Return to Home**](#placeholder_for_index)
